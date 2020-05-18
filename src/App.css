@@ -1,5 +1,11 @@
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .App {
-  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .App-logo {

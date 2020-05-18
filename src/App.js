@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Narrative from "./narrative.js";
+import Lollipop from "./lollipop.js";
+import DownArrow from "./down-arrow.js";
+import UpArrow from "./up-arrow.js";
+import Scatter from "./scatter.js";
+import Bubble from "./bubble.js";
 
+const sections = ["beeswarm", "lollipop", "scatter"];
 function App() {
+  const [section, setSection] = useState("beeswarm");
+  const nextSection = () => {
+    setSection(sections[sections.indexOf(section) + 1]);
+  };
+  const prevSection = () => {
+    setSection(sections[sections.indexOf(section) - 1]);
+  };
+
+  const loadSection = () => {
+    switch (section) {
+      case "beeswarm":
+        return <Bubble nextSection={nextSection} />;
+      case "lollipop":
+        return <Lollipop nextSection={nextSection} />;
+      case "scatter":
+        return <Narrative nextSection={nextSection} />;
+      default:
+        return null;
+    }
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {sections[sections.indexOf(section) - 1] !== undefined && <UpArrow onClick={prevSection} />}
+      {loadSection()}
+      {sections[sections.indexOf(section) + 1] !== undefined && <DownArrow onClick={nextSection} />}
     </div>
   );
 }
